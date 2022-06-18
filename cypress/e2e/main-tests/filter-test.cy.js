@@ -1,9 +1,15 @@
-describe('Check Hate Speech Page Tests', () => {
+describe('Filter Test', () => {
   beforeEach(() => {
     cy.visit('/checkhate');
   });
 
-  it('displays two sub pages - check tweet hate and check hate', () => {
+  afterEach(() => {
+    //Remove all cookies
+    cy.clearCookies();
+  });
+  
+
+  it('check if filter drop-downs work', () => {
     // cy.get('.todo-list li').should('have.length', 2);
 
     // cy.get('.todo-list li').first().should('have.text', 'Pay electric bill');
