@@ -7,23 +7,25 @@
 // commands please read more here:
 // https://on.cypress.io/custom-commands
 // ***********************************************
-//
-//
-// -- This is a parent command --
-// Cypress.Commands.add('login', (email, password) => { ... })
-//
-//
-// -- This is a child command --
-// Cypress.Commands.add('drag', { prevSubject: 'element'}, (subject, options) => { ... })
-//
-//
-// -- This is a dual command --
-// Cypress.Commands.add('dismiss', { prevSubject: 'optional'}, (subject, options) => { ... })
-//
-//
-// -- This will overwrite an existing command --
-// Cypress.Commands.overwrite('visit', (originalFn, url, options) => { ... })
+
 
 Cypress.Commands.add('visitpage', (endpoint) => {
     return cy.visit(endpoint);
+});
+
+
+Cypress.Commands.add('openCheckHatePage', (endpoint) => {
+    cy.get('[data-cy="proceed_button"]').click();
+    
+    cy.wait(5000);
+    
+    cy.intercept('https://asa2022.herokuapp.com/api/saved_tweets/all_analyzed_tweets/').as('fetch-map-data')
+    cy.wait('@fetch-map-data')
+    
+    
+    cy.get('[data-cy="check_hate_button"]').should('exist');
+
+
+    cy.get('[data-cy="check_hate_button"]').click();
+    // return cy.visit(endpoint).wait(6000);
 });
